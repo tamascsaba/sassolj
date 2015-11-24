@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "lib"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "typings/tsd.d.ts",
+    "src/typings.d.ts",
+    "src/interfaces.ts",
+    "src/index.ts"
+  ]
+}

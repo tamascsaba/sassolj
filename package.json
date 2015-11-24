@@ -1,0 +1,34 @@
+{
+  "name": "sassolj",
+  "version": "0.0.0",
+  "description": "Require scss files in Browserify and Nodejs",
+  "repository": "tamascsaba/sassoljs",
+  "main": "./lib/index.js",
+  "scripts": {
+    "prepublish": "npm run build && npm test",
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "tsc && node ./tests"
+  },
+  "keywords": [
+    "browserify",
+    "nodejs",
+    "require",
+    "sass",
+    "scss",
+    "browserify transform"
+  ],
+  "author": "Csaba Tamás",
+  "license": "MIT",
+  "devDependencies": {
+    "tsc": "^1.20150623.0"
+  },
+  "dependencies": {
+    "browserify-transform-tools": "^1.4.2",
+    "lodash": "^3.10.1",
+    "node-sass": "^3.3.3",
+    "postcss": "^4.1.11",
+    "require-sass": "^1.0.4",
+    "resolve": "^1.1.6"
+  }
+}
