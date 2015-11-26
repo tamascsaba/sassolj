@@ -1,12 +1,19 @@
-import * as sass from 'node-sass';
-import * as postcss from 'postcss';
-import * as tools from 'browserify-transform-tools';
-import * as path from 'path';
-import * as resolve from 'resolve';
-import * as requireSass from 'require-sass';
+const fs = require('fs');
+const resolve = require('resolve');
+const path = require('path');
+const sass = require('node-sass');
+const postcss = require('postcss');
+const tools = require('browserify-transform-tools');
+const requireSass = require('require-sass');
+const assign = require('lodash.assign');
+const omit = require('lodash.omit');
 
-import {assign, omit} from 'lodash';
-import {SassOptions, TransformConfig, TransformOptions} from './interfaces';
+import {
+  SassOptions,
+  TransformConfig,
+  TransformOptions
+} from './interfaces';
+import {createSassVariables} from './variables'
 
 const defaults: TransformConfig = {
   sass: {
@@ -17,7 +24,7 @@ const defaults: TransformConfig = {
     outputStyle: 'compressed'
   },
   postcss: false,
-  rootDir: process.cwd()
+  variables: ''
 };
 
 const MODULE_NAME: string = path.basename(path.dirname(__dirname));
@@ -28,23 +35,18 @@ const Transformer = tools.makeStringTransform(MODULE_NAME, {
 }, (content: string, opts: TransformOptions, done: Function) => {
   const file = opts.file;
 
-  const config = assign({}, defaults, opts.config) as TransformConfig;
-  const userSassOpts = config.sass as SassOptions;
-  const sassOpts = assign({}, userSassOpts) as SassOptions;
+  const config: TransformConfig = assign({}, defaults, omit(opts.config, '_flags'));
+  const sassOpts: SassOptions = config.sass;
+  const variables = createSassVariables(config.variables);
 
   sassOpts.includePaths = sassOpts.includePaths || [];
   sassOpts.includePaths.unshift(path.dirname(file));
   sassOpts.indentedSyntax = /\.sass$/i.test(file);
-  sassOpts.file = file;
-  sassOpts.data = content;
-  sassOpts.outFile = file;
+  sassOpts.data = variables + content;
 
   if (config.postcss !== false && !(typeof config.postcss === 'object')) {
     return done(new Error('Postcss config must be false or an object of plugins'));
   }
-
-  const relativePath = path.relative(config.rootDir, path.dirname(file));
-  const href = path.join(relativePath, path.basename(file));
 
   const postcssTransforms: Array<Function> = config.postcss ? Object.keys(config.postcss).map((pluginName: string) => {
     const pluginOpts = config.postcss[pluginName];
@@ -70,9 +72,6 @@ const Transformer = tools.makeStringTransform(MODULE_NAME, {
     return done(null, out);
   })
 });
-
-//Node.js
-export const register = requireSass;
 
 //Browserify
 export default Transformer;

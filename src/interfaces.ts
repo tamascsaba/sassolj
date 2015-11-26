@@ -1,7 +1,7 @@
 export interface TransformConfig {
-  sass: SassOptions;
-  postcss: boolean | Object;
-  rootDir: string;
+  sass?: SassOptions;
+  postcss?: boolean | Object;
+  variables?: any;
 }
 
 export interface TransformOptions {

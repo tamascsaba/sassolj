@@ -10,7 +10,8 @@
   ],
   "files": [
     "typings/tsd.d.ts",
-    "src/typings.d.ts",
+    "src/variables.ts",
+    "src/register.ts",
     "src/interfaces.ts",
     "src/index.ts"
   ]

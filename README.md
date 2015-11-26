@@ -2,35 +2,13 @@
 
 Require [Sass](http://sass-lang.com) files in browserify and Node.js
 
-# Example
-
-MyComponent.scss:
-``` css
-.MyComponent {
-  color: red;
-  background: blue;
-}
-```
-
-MyComponent.js:
-``` js
-const CSS = require('./MyComponent.scss');
-
-console.log(CSS)
-```
-
-Indented Sass syntax may be used with the `.sass` extension:
-``` js
-require('./MyComponent.sass');
-```
-
 Install sassolj:
 
 ```
 $ npm i sassolj
 ```
 
-## Settings
+## Browserify
 The default settings are listed below. They may be overridden though the CLI, package.json (`sassolj` property)
 or though the API options.
 
@@ -41,7 +19,7 @@ In order for PostCSS plugins to be used, they must be installed in your projects
   var sassolj = require('sassolj');
   browserify('entry.js')
     .transform(sassolj, {
-      'sass': { //Full sass options
+      'sass': {
         'sourceComments': false,
         'sourceMap': false,
         'sourceMapEmbed': false,
@@ -61,9 +39,38 @@ In order for PostCSS plugins to be used, they must be installed in your projects
     .bundle()
 ````
 
-# Install
+## Node.js
 
-[![sassolj](https://nodei.co/npm/sassolj.png?small=true)](https://nodei.co/npm/sassolj)
+During the boot up process of your application, require `sassolj/register` once;
+```
+require('sassolj/register')(options, variables, extensions);
+```
+You can add options, variables and extensions all is optional.
+After this point, all sass files is requireable.
+
+### options
+node-sass options
+
+Type: `Object`
+Default: `{
+  sourceMap: false,
+  sourceMapEmbed: false,
+  sourceMapContents: false,
+  outputStyle: "compressed"
+}`
+
+### variables
+Extra variables which overwrite !default vars.
+
+Type: `Object` | `string`
+Default: ``
+You can use absolute and relative string path to sass/scss config file
+
+### extensions
+Which extensions register to ```require.extensions```
+
+Type: `Array`
+Default: `['.sass', '.scss']`
 
 #Development
 
