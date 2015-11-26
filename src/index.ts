@@ -13,7 +13,7 @@ import {
   TransformConfig,
   TransformOptions
 } from './interfaces';
-import {createSassVariables} from './variables'
+import {createSassVariables, sassImport} from './variables'
 
 const defaults: TransformConfig = {
   sass: {
@@ -24,7 +24,7 @@ const defaults: TransformConfig = {
     outputStyle: 'compressed'
   },
   postcss: false,
-  variables: ''
+  variables: {}
 };
 
 const MODULE_NAME: string = path.basename(path.dirname(__dirname));
@@ -42,7 +42,7 @@ const Transformer = tools.makeStringTransform(MODULE_NAME, {
   sassOpts.includePaths = sassOpts.includePaths || [];
   sassOpts.includePaths.unshift(path.dirname(file));
   sassOpts.indentedSyntax = /\.sass$/i.test(file);
-  sassOpts.data = variables + content;
+  sassOpts.data = variables + sassImport(file);
 
   if (config.postcss !== false && !(typeof config.postcss === 'object')) {
     return done(new Error('Postcss config must be false or an object of plugins'));
