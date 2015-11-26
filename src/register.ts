@@ -1,9 +1,10 @@
 const fs = require('fs');
+const path = require('path');
 const sass = require('node-sass');
 const assign = require('lodash.assign');
 
 import {SassOptions} from './interfaces';
-import {createSassVariables} from './variables';
+import {createSassVariables, sassImport} from './variables';
 
 // Defaults
 let options: SassOptions = {
@@ -15,8 +16,8 @@ let options: SassOptions = {
 
 let variables:string = '';
 
-// Main export
-export default (opts?: SassOptions, vars?: Object | string, exts?: string[]) => {
+
+export function register(vars?: Object | string, opts?: SassOptions, exts?: string[]) {
   options = assign(options, opts);
 
   if (vars) {
@@ -35,10 +36,22 @@ export default (opts?: SassOptions, vars?: Object | string, exts?: string[]) => 
   }
 }
 
-function requireSass(module: NodeModule, file: string) {
-  const data = variables + fs.readFileSync(file);
-  const sassOptions = assign(options, { data: data });
-  const result = sass.renderSync(sassOptions);
+function requireSass(nodeModule: NodeModule, file: string) {
+  const data = variables + sassImport(file);
+  const result = sass.renderSync(
+    assign(
+      {
+        data: data,
+        includePaths: [path.dirname(file)]
+      },
+      options
+    )
+  ).css.toString();
 
-  module.exports = result.css.toString();
+  nodeModule.exports = result;
 };
+
+//Register with default options
+register();
+
+exports.register = register;

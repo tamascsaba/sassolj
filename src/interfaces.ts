@@ -9,14 +9,9 @@ export interface TransformOptions {
   config: TransformConfig;
 }
 
-interface Importer {
-  (url: string, prev: string, done: (data: { file: string; contents: string; }) => void): void;
-}
-
 export interface SassOptions {
   file?: string;
   data?: string;
-  importer?: Importer | Importer[];
   functions?: { [key: string]: Function };
   includePaths?: string[];
   indentedSyntax?: boolean;

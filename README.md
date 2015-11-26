@@ -43,10 +43,17 @@ In order for PostCSS plugins to be used, they must be installed in your projects
 
 During the boot up process of your application, require `sassolj/register` once;
 ```
-require('sassolj/register')(options, variables, extensions);
+require('sassolj/register')(variables, options, extensions);
 ```
-You can add options, variables and extensions all is optional.
+You can add variables, options and extensions all is optional.
 After this point, all sass files is requireable.
+
+### variables
+Extra variables which overwrite !default vars.
+
+Type: `Object` | `string`
+Default: ``
+You can use absolute and relative string path to sass/scss config file
 
 ### options
 node-sass options
@@ -58,13 +65,6 @@ Default: `{
   sourceMapContents: false,
   outputStyle: "compressed"
 }`
-
-### variables
-Extra variables which overwrite !default vars.
-
-Type: `Object` | `string`
-Default: ``
-You can use absolute and relative string path to sass/scss config file
 
 ### extensions
 Which extensions register to ```require.extensions```

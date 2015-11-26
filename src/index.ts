@@ -73,5 +73,4 @@ const Transformer = tools.makeStringTransform(MODULE_NAME, {
   })
 });
 
-//Browserify
-export default Transformer;
+module.exports = Transformer;
