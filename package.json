@@ -1,6 +1,6 @@
 {
   "name": "sassolj",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Require scss files in Browserify and Nodejs",
   "repository": "tamascsaba/sassolj",
   "main": "./lib/index.js",
@@ -11,9 +11,9 @@
   "readmeFilename": "README.md",
   "scripts": {
     "prepublish": "npm run build && npm test",
-    "build": "tsc",
-    "dev": "tsc -w",
-    "test": "tsc && node ./tests"
+    "build": "tsc && babel lib --out-dir lib",
+    "dev": "tsc -w & babel --watch lib --out-dir lib",
+    "test": "npm run build && node ./tests"
   },
   "keywords": [
     "browserify",
@@ -26,6 +26,10 @@
   "author": "Csaba Tamás",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-cli": "^6.2.0",
+    "babel-plugin-add-module-exports": "^0.1.1",
+    "babel-preset-es2015": "^6.1.18",
     "tsc": "^1.20150623.0",
     "typescript": "^1.6.2"
   },

@@ -19,33 +19,41 @@ In order for PostCSS plugins to be used, they must be installed in your projects
   var sassolj = require('sassolj');
   browserify('entry.js')
     .transform(sassolj, {
-      'sass': {
-        'sourceComments': false,
-        'sourceMap': false,
-        'sourceMapEmbed': false,
-        'sourceMapContents': false,
-        'outputStyle': 'compressed'
+      sass: {
+        sourceComments: false,
+        sourceMap: false,
+        sourceMapEmbed: false,
+        sourceMapContents: false,
+        outputStyle: 'compressed'
       },
-      'postcss': false,
+      postcss: false,
       //you may specify what postcss plugins to use here
-      'postcss': {
-        'autoprefixer': {
-          'browsers': ['last 2 versions'] //optional config, use an empty object for defualts
+      postcss: {
+        autoprefixer: {
+          browsers: ['last 2 versions'] //optional config, use an empty object for defualts
         }
       }
       ,
-      'rootDir': process.cwd()
+      rootDir: process.cwd()
     })
     .bundle()
 ````
 
 ## Node.js
 
-During the boot up process of your application, require `sassolj/register` once;
+During the boot up process of your application, require `sassolj/lib/register` once;
 ```
-require('sassolj/register')(variables, options, extensions);
+var options = {
+  sass: {
+    sourceMap: false,
+  },
+  variables: {
+    'font_size': '14px'
+  },
+  extensions: ['.css' '.sass', '.scss']
+}
+require('sassolj/register')(options);
 ```
-You can add variables, options and extensions all is optional.
 After this point, all sass files is requireable.
 
 ### variables
