@@ -1,6 +1,6 @@
 {
   "name": "sassolj",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Require scss files in Browserify and Nodejs",
   "repository": "tamascsaba/sassolj",
   "main": "./lib/index.js",

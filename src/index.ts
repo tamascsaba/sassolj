@@ -61,11 +61,5 @@ const Transformer = tools.makeStringTransform('sassolj', {
 
 Transformer.register = register;
 
-//Module declaration
-export module sassolj {
-    export var configure: any;
-    export var setConfig: any;
-    export var register: any;
-}
-
+//export {register};
 export default Transformer;
