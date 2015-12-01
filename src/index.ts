@@ -31,7 +31,7 @@ const Transformer = tools.makeStringTransform('sassolj', {
     const file = opts.file;
 
     const config: TransformConfig = assign({}, defaults, omit(opts.config, '_flags'));
-    const sassOpts: SassOptions = config.sass;
+    const sassOpts: SassOptions = assign({}, config.sass);
     const variables = createVariables(config.variables);
 
     sassOpts.includePaths = sassOpts.includePaths || [];
@@ -50,9 +50,7 @@ const Transformer = tools.makeStringTransform('sassolj', {
 
         let out = '';
         const css = config.postcss ? createPostcss(postcssTransforms, result.css) : result.css;
-
         const cssString: string = JSON.stringify(css.toString())
-
         out += ` module.exports = ${cssString};`;
 
         return done(null, out);
