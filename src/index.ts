@@ -3,15 +3,14 @@ const resolve = require('resolve');
 const path = require('path');
 const sass = require('node-sass');
 const tools = require('browserify-transform-tools');
-const requireSass = require('require-sass');
 const assign = require('lodash.assign');
 const omit = require('lodash.omit');
+const register = require('./register');
 
 import {SassOptions, TransformConfig, TransformOptions} from './interfaces';
 
 import {createVariables, sassImport} from './create_variables';
 import {getPostcssTransforms, createPostcss} from './postcss';
-import register from './register';
 
 const defaults: TransformConfig = {
     sass: {
@@ -25,9 +24,7 @@ const defaults: TransformConfig = {
     variables: {}
 };
 
-const MODULE_NAME: string = path.basename(path.dirname(__dirname));
-
-const Transformer = tools.makeStringTransform(MODULE_NAME, {
+const Transformer = tools.makeStringTransform('sassolj', {
     includeExtensions: ['.css', '.sass', '.scss'],
     evaluateArguments: true
 }, (content: string, opts: TransformOptions, done: Function) => {
@@ -62,5 +59,13 @@ const Transformer = tools.makeStringTransform(MODULE_NAME, {
     })
 });
 
-export {register};
+Transformer.register = register;
+
+//Module declaration
+export module sassolj {
+    export var configure: any;
+    export var setConfig: any;
+    export var register: any;
+}
+
 export default Transformer;
