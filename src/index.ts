@@ -62,4 +62,5 @@ const Transformer = tools.makeStringTransform(MODULE_NAME, {
     })
 });
 
+export {register};
 export default Transformer;

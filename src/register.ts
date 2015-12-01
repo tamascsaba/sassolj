@@ -20,10 +20,7 @@ let sassOptions: SassOptions = {
 
 let variables: string = '';
 
-export default function register(config?: RequireConfig) {
-    if (!config) {
-        config = {};
-    }
+export default function register(config: RequireConfig = {}) {
     variables = createVariables(config.variables);
     assign(sassOptions, config.sass);
 

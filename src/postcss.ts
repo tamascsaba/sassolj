@@ -1,7 +1,7 @@
 const resolve = require('resolve');
 const postcss = require('postcss');
 
-export function getPostcssTransform(config): Function[] {
+export function getPostcssTransforms(config): Function[] {
     const postcssTransforms: Function[] = config ? Object.keys(config).map((pluginName: string) => {
         const pluginOpts = config[pluginName];
         const plugin = require(resolve.sync(pluginName, { basedir: process.cwd() }));
