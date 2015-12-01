@@ -10,7 +10,7 @@
   "homepage": "https://github.com/tamascsaba/sassolj",
   "readmeFilename": "README.md",
   "scripts": {
-    "prepublish": "npm run build && npm test",
+    "prepublish": "npm run test",
     "build": "tsc && babel lib --out-dir lib",
     "dev": "tsc -w & babel --watch lib --out-dir lib",
     "test": "npm run build && node ./tests"
@@ -39,7 +39,6 @@
     "lodash.omit": "^3.1.0",
     "node-sass": "^3.3.3",
     "postcss": "^4.1.11",
-    "require-sass": "^1.0.4",
     "resolve": "^1.1.6"
   }
 }
