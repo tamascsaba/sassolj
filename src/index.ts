@@ -35,7 +35,6 @@ const Transformer = tools.makeStringTransform('sassolj', {
     const variables = createVariables(config.variables);
 
     sassOpts.includePaths = sassOpts.includePaths || [];
-    sassOpts.includePaths.unshift(path.dirname(file));
     sassOpts.indentedSyntax = /\.sass$/i.test(file);
     sassOpts.data = variables + sassImport(file);
 
