@@ -1,6 +1,6 @@
 {
   "name": "sassolj",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Require scss files in Browserify and Nodejs",
   "repository": "tamascsaba/sassolj",
   "main": "./lib/index.js",
@@ -38,7 +38,7 @@
     "browserify-transform-tools": "^1.5.0",
     "lodash.assign": "^3.2.0",
     "lodash.omit": "^3.1.0",
-    "node-sass": "3.4.2",
+    "node-sass": "^3.6.0",
     "postcss": "^4.1.11",
     "resolve": "^1.1.6"
   }
